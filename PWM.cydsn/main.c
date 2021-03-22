@@ -10,11 +10,15 @@
  * ========================================
 */
 #include "project.h"
+#include <stdio.h>
 
-void servoStop(void);
-void servoPos(void);
-void servoNeg(void);
-void wait(uint8_t sec);
+#define POS_0    650
+#define POS_90   1550
+#define POS_180  2500
+
+char buf[50];
+
+long map(long x, long in_min, long in_max, long out_min, long out_max);
 
 int main(void)
 {
@@ -24,59 +28,46 @@ int main(void)
     PWM_1_Start();
     UART_1_Start();
     
-    /*UART_1_PutString("Starting");
-    wait(3);
+    // Test the map() function
+    int pos90 = map(0, -90, +90, POS_0, POS_180); // SHOULD RETURN 1550
+    sprintf(buf, "pos90 = %d (expected: %d)\r\n", pos90, POS_0);
+    UART_1_PutString(buf);
     
-    UART_1_PutString("servoStop(): 1.5 ms PWM");
-    servoStop();
-    wait(5);
+    uint8_t count = 0;
     
-    UART_1_PutString("servoPos(): 2 ms PWM");
-    servoPos();
-    wait(5);
-    
-    UART_1_PutString("servoStop(): 1.5 ms PWM");
-    servoStop();
-    wait(5);
-    
-    
-    UART_1_PutString("servoNeg(): 1 ms PWM");
-    servoNeg();
-    wait(5);
-    
-    UART_1_PutString("Finished.\r\n");
-    servoStop();*/
-    
-}
-
-void servoStop(void) {
- 
-    // 1.5 ms ON
-    PWM_1_WriteCompare(36);
-    
-}
-
-void servoPos(void) {
-    
-    // 2.0 ms ON
-    PWM_1_WriteCompare(35);
-    
-}
-
-void servoNeg(void) {
-    
-    // 1.0 ms ON
-    PWM_1_WriteCompare(37);
-    
-}
-
-void wait(uint8_t sec) {
-    
-    for ( uint8_t i = 0; i < sec; i++ ) {
-        CyDelay(1000);
-        UART_1_PutChar('.');
+    while(count < 3) {
+     
+        // Go to position 0 (left)
+        PWM_1_WriteCompare(769);
+        // Hold for 2 seconds
+        CyDelay(2000);
+        
+        // Go to position 90 (middle)
+        PWM_1_WriteCompare(734);
+        // Hold for 2 seconds
+        CyDelay(2000);
+        
+        // Go to position 180 (right)
+        PWM_1_WriteCompare(699);
+        // Hold for 2 seconds
+        CyDelay(2000);
+//        
+//        // Go to position 180 (right)
+//        PWM_1_WriteCompare(749);
+//        // Hold for 2 seconds
+//        CyDelay(2000);
+        
+        count++;
+        
     }
-    UART_1_PutString("\r\n");
+    
+    return 0;
+    
+}
+
+long map(long x, long in_min, long in_max, long out_min, long out_max) {
+    
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     
 }
 
