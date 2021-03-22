@@ -12,11 +12,9 @@
 #include "project.h"
 #include <stdio.h>
 
-#define POS_0   1000
-#define POS_45  1500
-#define POS_90  2000
-#define POS_135 2500
-#define POS_180 1500
+#define POS_0   650
+#define POS_90  1550
+#define POS_180 2500
 
 char buffer[50];
 
@@ -38,20 +36,10 @@ int main(void)
         for ( uint8_t i = 0; i < 200; i++ ) 
             servo_setPosition(POS_0);
         
-        sprintf(buffer, "Position 45:  %d us\r\n", POS_45);
-        UART_1_PutString(buffer);
-        for ( uint8_t i = 0; i < 200; i++ ) 
-            servo_setPosition(POS_45);
-        
         sprintf(buffer, "Position 90:  %d us\r\n", POS_90);
         UART_1_PutString(buffer);
         for ( uint8_t i = 0; i < 200; i++ ) 
             servo_setPosition(POS_90);
-            
-        sprintf(buffer, "Position 135: %d us\r\n", POS_135);
-        UART_1_PutString(buffer);
-        for ( uint8_t i = 0; i < 200; i++ ) 
-            servo_setPosition(POS_135);
             
         sprintf(buffer, "Position 180: %d us\r\n", POS_180);
         UART_1_PutString(buffer);
