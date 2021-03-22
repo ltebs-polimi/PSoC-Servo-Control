@@ -12,9 +12,13 @@
 #include "project.h"
 #include <stdio.h>
 
-#define POS_0    650
-#define POS_90   1550
-#define POS_180  2500
+#define POS_0_ms    650
+#define POS_90_ms   1550
+#define POS_180_ms  2500
+// PWM compare values
+#define POS_0       769
+#define POS_90      734
+#define POS_180     699
 
 char buf[50];
 
@@ -29,8 +33,8 @@ int main(void)
     UART_1_Start();
     
     // Test the map() function
-    int pos90 = map(0, -90, +90, POS_0, POS_180); // SHOULD RETURN 1550
-    sprintf(buf, "pos90 = %d (expected: %d)\r\n", pos90, POS_0);
+    int pos90 = map(0, -90, +90, POS_0_ms, POS_180_ms); // SHOULD RETURN 1550
+    sprintf(buf, "pos90 = %d (expected: %d)\r\n", pos90, POS_0_ms);
     UART_1_PutString(buf);
     
     uint8_t count = 0;
@@ -51,13 +55,13 @@ int main(void)
         PWM_1_WriteCompare(699);
         // Hold for 2 seconds
         CyDelay(2000);
-//        
-//        // Go to position 180 (right)
-//        PWM_1_WriteCompare(749);
-//        // Hold for 2 seconds
-//        CyDelay(2000);
         
         count++;
+        
+        // 45°
+        uint16_t x = map(45, 0, 180, 769, 699);
+        PWM_1_WriteCompare(x);
+        CyDelay(2000);
         
     }
     
