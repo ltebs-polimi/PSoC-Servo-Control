@@ -50,7 +50,12 @@ int main(void)
     CyDelay(2000);
     
     // Test the motion profile
-    servo_motionProfileBlocking(180, 0, 5);
+    servo_motionProfileBlocking(180, 0, 2);
+    
+    // Position check
+    uint16_t currentPos = servo_getPosition();
+    sprintf(buf, "Current position: %d\r\n", currentPos);
+    UART_1_PutBuf;
     
     return 0;
     
