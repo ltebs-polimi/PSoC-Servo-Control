@@ -53,26 +53,20 @@ void servo_motionProfileBlocking(uint16_t xi, uint16_t xf, uint8_t t) {
     
     char b[50];
  
-    // Split the duration in 100 ms windows (10 = 1000ms/s / 100ms)
-    uint16_t nw = 40 * t;
-    
-    // Split the xi-xf range in segments of width dx
-    int16_t dx = (xf-xi)/nw;
-    // Minimum resolution: 1 degree (test with float value for setPosition())
-    dx = (dx == 0) ? 1 : dx;
+    // Sleep time [ms]
+    uint16_t dt = abs(xf-xi)/t;
     
     // Direction
-    int8_t dir = (xf > xi) ? 1 : -1;
-    //dx *= dir;
+    int8_t dx = (xf > xi) ? 1 : -1;
     
-    sprintf(b, "nw = %d | dir = %d | dx = %d\r\n", nw, dir, dx);
+    sprintf(b, "dt = %d\r\n", dt);
     UART_1_PutString(b);
     
-    for( uint16_t i = 0; i < nw; i++ ) {
+    while( xi != xf ) {
     
         xi += dx;
         servo_setPosition(xi);
-        CyDelay(25);
+        CyDelay(dt);
         
     }
     

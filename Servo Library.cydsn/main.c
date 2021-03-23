@@ -50,7 +50,7 @@ int main(void)
     CyDelay(2000);
     
     // Test the motion profile
-    servo_motionProfileBlocking(180, 0, 2);
+    servo_motionProfileBlocking(180, 0, 5);
     
     // Position check
     uint16_t currentPos = servo_getPosition();
