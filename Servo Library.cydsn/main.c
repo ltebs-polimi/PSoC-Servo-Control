@@ -34,22 +34,24 @@ int main(void)
     PWM_1_Start();
     UART_1_Start();
     
-    /* Set position 1: 90° */
-    servo_setPosition(90);
+    CyDelay(2000);
+    
+    /* Set position 1: 45° */
+    servo_setPosition(45);
     /* Check */
-    uint16_t pwmc = map(90, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
+    uint16_t pwmc = map(45, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
     uint16_t check = servo_getPosition();
-    sprintf(buf, "Position 1: 90 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
+    sprintf(buf, "Position 1: 45 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
     UART_1_PutBuf;
     
     CyDelay(2000);
     
-    /* Set position 1: 90° */
-    servo_setPosition(45);
+    /* Set position 2: 135° */
+    servo_setPosition(135);
     /* Check */
-    pwmc = map(45, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
+    pwmc = map(135, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
     check = servo_getPosition();
-    sprintf(buf, "Position 1: 45 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
+    sprintf(buf, "Position 1: 135 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
     UART_1_PutBuf;
     pwmc = map(752, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H, SERVO_LIMIT_L, SERVO_LIMIT_H);
     sprintf(buf, "Inverse map: %d\r\n", pwmc);

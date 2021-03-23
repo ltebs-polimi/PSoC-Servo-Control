@@ -22,8 +22,8 @@
     #define SERVO_LIMIT_H   180
     
     /// PWM on-time limits [digit] of the servo; compare values for PWM_1
-    #define SERVO_PWM_LIMIT_L   769
-    #define SERVO_PWM_LIMIT_H   699
+    #define SERVO_PWM_LIMIT_L   1547
+    #define SERVO_PWM_LIMIT_H   1399
     
     /// Map function implementation: used in servo_setPosition(deg)
     float map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
