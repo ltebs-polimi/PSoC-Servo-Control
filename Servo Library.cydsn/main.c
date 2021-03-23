@@ -37,15 +37,20 @@ int main(void)
     CyDelay(2000);
     
     /* Set position 2: 135° */
-    servo_setPosition(135);
+    servo_setPosition(180);
     /* Check */
-    pwmc = map(135, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
+    pwmc = map(180, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
     check = servo_getPosition();
     sprintf(buf, "Position 1: 135 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
     UART_1_PutBuf;
     pwmc = map(752, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H, SERVO_LIMIT_L, SERVO_LIMIT_H);
     sprintf(buf, "Inverse map: %d\r\n", pwmc);
     UART_1_PutBuf;
+    
+    CyDelay(2000);
+    
+    // Test the motion profile
+    servo_motionProfileBlocking(180, 0, 5);
     
     return 0;
     

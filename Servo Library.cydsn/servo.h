@@ -37,6 +37,9 @@
     /// Define motion profile from xi to xf with duration t
     void servo_motionProfile(uint16_t xi, uint16_t xf, uint8_t t);
     
+    /// Define motion profile from xi to xf with duration t : BLOCKING FUNCTION
+    void servo_motionProfileBlocking(uint16_t xi, uint16_t xf, uint8_t t);
+    
     
 #endif
 
