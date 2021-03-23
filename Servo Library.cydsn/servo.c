@@ -11,11 +11,10 @@
 */
 
 #include "servo.h"
-#include "UART_1.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
+static uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
     
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     
@@ -58,9 +57,6 @@ void servo_motionProfileBlocking(uint16_t xi, uint16_t xf, uint8_t t) {
     
     // Direction
     int8_t dx = (xf > xi) ? 1 : -1;
-    
-    sprintf(b, "dt = %d\r\n", dt);
-    UART_1_PutString(b);
     
     while( xi != xf ) {
     
