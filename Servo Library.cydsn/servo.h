@@ -26,7 +26,7 @@
     #define SERVO_PWM_LIMIT_H   1399
     
     /// Map function implementation: used in servo_setPosition(deg)
-    float map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
+    uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
     
     /// Set the servo to the desired motion
     uint16_t servo_setPosition(uint16_t deg);

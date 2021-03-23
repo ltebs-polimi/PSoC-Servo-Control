@@ -14,13 +14,9 @@
 #include "UART_1.h"
 #include <stdio.h>
 
-float map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
+uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
     
-    float tmp = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    char b[30];
-    sprintf(b, "map(x) = %f\r\n", tmp);
-    UART_1_PutString(b);
-    return tmp;
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     
 }
 

@@ -13,18 +13,8 @@
 #include <stdio.h>
 #include "servo.h"
 
-#define POS_0_ms    650
-#define POS_90_ms   1550
-#define POS_180_ms  2500
-// PWM compare values
-#define POS_0       769
-#define POS_90      734
-#define POS_180     699
-
 char buf[100];
 #define UART_1_PutBuf UART_1_PutString(buf);
-
-// long map(long x, long in_min, long in_max, long out_min, long out_max);
 
 int main(void)
 {
