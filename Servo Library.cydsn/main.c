@@ -11,6 +11,7 @@
 */
 #include "project.h"
 #include <stdio.h>
+#include "servo.h"
 
 #define POS_0_ms    650
 #define POS_90_ms   1550
@@ -20,9 +21,10 @@
 #define POS_90      734
 #define POS_180     699
 
-char buf[50];
+char buf[100];
+#define UART_1_PutBuf UART_1_PutString(buf);
 
-long map(long x, long in_min, long in_max, long out_min, long out_max);
+// long map(long x, long in_min, long in_max, long out_min, long out_max);
 
 int main(void)
 {
@@ -32,41 +34,28 @@ int main(void)
     PWM_1_Start();
     UART_1_Start();
     
-    uint8_t count = 0;
+    /* Set position 1: 90° */
+    servo_setPosition(90);
+    /* Check */
+    uint16_t pwmc = map(90, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
+    uint16_t check = servo_getPosition();
+    sprintf(buf, "Position 1: 90 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
+    UART_1_PutBuf;
     
-    while(count < 2) {
-     
-        // Go to position 0 (left)
-        PWM_1_WriteCompare(769);
-        // Hold for 2 seconds
-        CyDelay(2000);
-        
-        // Go to position 90 (middle)
-        PWM_1_WriteCompare(734);
-        // Hold for 2 seconds
-        CyDelay(2000);
-        
-        // Go to position 180 (right)
-        PWM_1_WriteCompare(699);
-        // Hold for 2 seconds
-        CyDelay(2000);
-        
-        count++;
-        
-        // 45°
-        uint16_t x = map(45, 0, 180, 769, 699);
-        PWM_1_WriteCompare(x);
-        CyDelay(2000);
-        
-    }
+    CyDelay(2000);
+    
+    /* Set position 1: 90° */
+    servo_setPosition(45);
+    /* Check */
+    pwmc = map(45, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
+    check = servo_getPosition();
+    sprintf(buf, "Position 1: 45 [deg]\t PWM compare: %d servo_getPosition(): %d\r\n", pwmc, check);
+    UART_1_PutBuf;
+    pwmc = map(752, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H, SERVO_LIMIT_L, SERVO_LIMIT_H);
+    sprintf(buf, "Inverse map: %d\r\n", pwmc);
+    UART_1_PutBuf;
     
     return 0;
-    
-}
-
-long map(long x, long in_min, long in_max, long out_min, long out_max) {
-    
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     
 }
 
