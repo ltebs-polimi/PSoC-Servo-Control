@@ -27,7 +27,7 @@ uint16_t servo_setPosition(uint16_t deg) {
     
     // Update the PWM compare value
     uint16_t compareValue = round(tmp);
-    PWM_1_WriteCompare(compareValue);
+    PWM_Servo_WriteCompare(compareValue);
     
     return compareValue;
     
@@ -36,7 +36,7 @@ uint16_t servo_setPosition(uint16_t deg) {
 uint16_t servo_getPosition(void) {
  
     // Get the actual compare value
-    uint16_t comparePWM = PWM_1_ReadCompare();
+    uint16_t comparePWM = PWM_Servo_ReadCompare();
     
     // Map the value to degrees
     return map(comparePWM, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H, SERVO_LIMIT_L, SERVO_LIMIT_H);

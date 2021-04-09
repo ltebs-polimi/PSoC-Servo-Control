@@ -38,7 +38,11 @@ int main(void)
     UART_1_PutString(buf);
     
     uint8_t count = 0;
-    
+    // 45°
+    uint16_t x = map(45, 0, 180, 769, 699);
+    PWM_1_WriteCompare(699);
+    CyDelay(2000);
+    /*
     while(count < 3) {
      
         // Go to position 0 (left)
@@ -63,7 +67,7 @@ int main(void)
         PWM_1_WriteCompare(x);
         CyDelay(2000);
         
-    }
+    }*/
     
     return 0;
     

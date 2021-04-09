@@ -13,7 +13,7 @@
 #ifndef __SERVO_H
     #define __SERVO_H
     
-    #include "PWM_1.h"
+    #include "PWM_Servo.h"
     #include <cytypes.h>
     #include <math.h>
 
