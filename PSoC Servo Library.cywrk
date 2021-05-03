@@ -3,12 +3,12 @@
 <!--This file is machine generated and read. It is not intended to be edited by hand.-->
 <!--Due to this, there is no schema for this file.-->
 <CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize" version="5" xml_contents_version="3" name="PSoC Servo Library" persistent="PSoC Servo Library.cywrk" platform="NOT_USED">
-<current_project name=".\Servo Library I2C.cydsn\Servo Library I2C.cyprj" />
+<current_project name=".\Servo Library Interface.cydsn\Servo Library Interface.cyprj" />
 <wrkspc_folders />
 <files />
 <projects>
 <v>.\Servo Library.cydsn\Servo Library.cyprj</v>
-<v>.\Servo Library I2C.cydsn\Servo Library I2C.cyprj</v>
+<v>.\Servo Library Interface.cydsn\Servo Library Interface.cyprj</v>
 </projects>
 <workspace_id v="a7758e0c-4180-4d34-9a5e-8e456e04f5b6" />
 <WriteAppVersionLastSavedWith v="4.4.0.80" />
