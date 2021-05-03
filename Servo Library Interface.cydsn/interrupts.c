@@ -33,28 +33,28 @@
 #include "servo.h"
 
 /**
- *  \brief          Buffer with data received from I2C.
- */
+  *  \brief          Buffer with data received from I2C.
+  */
 extern uint8_t slave_buffer[];
 
 /**
- *  \brief          Flag signaling new data to be processed.
- */
+  *  \brief          Flag signaling new data to be processed.
+  */
 extern uint8_t ezi2c_flag;
 
 /**
- *  \brief          Variable holding the angle of the servo motor.
- */
+  *  \brief          Variable holding the angle of the servo motor.
+  */
 extern uint8_t servo_angle;
 
 
 /**
- *  \brief          Callback called on EZI2C exit.
- *  
- *  This callback is called when exiting from the EZI2C ISR. It
- *  processes the buffer and checks whether it is required to
- *  update the servo angle.
- */
+  *  \brief          Callback called on EZI2C exit.
+  *  
+  *  This callback is called when exiting from the EZI2C ISR. It
+  *  processes the buffer and checks whether it is required to
+  *  update the servo angle.
+  */
 void EZI2C_ISR_ExitCallback(void)
 {
     // Get the new servo angle from the I2C buffer

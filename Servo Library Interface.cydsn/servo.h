@@ -1,9 +1,9 @@
 /**
-  *  \file           servo.h
-  *  \brief          Header file for servo motor interface.
-  *
-  *  \author         Davide Marzorati, Mattia Pesenti
-  */
+ *  \file           servo.h
+ *  \brief          Header file for servo motor interface.
+ *
+ *  \author         Davide Marzorati, Mattia Pesenti
+ */
 
 /*******************************************************************************
  * Copyright (c) 2021 Marzorati Davide, Pesenti Mattia
@@ -32,13 +32,45 @@
 #ifndef __SERVO_H
     #define __SERVO_H
     
+    #ifdef __cpluscplus
+        extern "C" {
+    #endif
+    
     #include <cytypes.h>
+        
+    
+    /*************************************
+     *          API Constants            *
+     ************************************/
 
+    /**
+     *  \brief          Lowest servo angle.
+     */
+    #define SERVO_LIMIT_L   0
+
+    /**
+     *  \brief          Highest servo angle.
+     */
+    #define SERVO_LIMIT_H   180
+
+    /**
+     *  \brief          PWM Compare value for \ref SERVO_LIMIT_L angle.
+     */
+    #define SERVO_PWM_LIMIT_L   1547
+
+    /**
+     *  \brief          PWM Compare value for \ref SERVO_LIMIT_H angle.
+     */
+    #define SERVO_PWM_LIMIT_H   1399
+    
     uint16_t Servo_Map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
     uint16_t Servo_SetPosition(uint16_t deg);
     uint16_t Servo_GetPosition(void);
     void Servo_MotionProfileBlocking(uint16_t xi, uint16_t xf, uint8_t t);
     
+    #ifdef __cpluscplus
+        extern }
+    #endif
 #endif
 
 /* [] END OF FILE */

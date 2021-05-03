@@ -1,9 +1,9 @@
 /**
-  *  \file           servo.c
-  *  \brief          Source file for servo motor interface.
-  *
-  *  \author         Davide Marzorati, Mattia Pesenti
-  */
+ *  \file           servo.c
+ *  \brief          Source file for servo motor interface.
+ *
+ *  \author         Davide Marzorati, Mattia Pesenti
+ */
 
 /*******************************************************************************
  * Copyright (c) 2021 Marzorati Davide, Pesenti Mattia
@@ -36,31 +36,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*************************************
- *          API Constants            *
- ************************************/
-
-/**
- *  \brief          Lowest servo angle.
- */
-#define SERVO_LIMIT_L   0
-
-/**
- *  \brief          Highest servo angle.
- */
-#define SERVO_LIMIT_H   180
-
-/**
- *  \brief          PWM Compare value for \ref SERVO_LIMIT_L angle.
- */
-#define SERVO_PWM_LIMIT_L   1547
-
-/**
- *  \brief          PWM Compare value for \ref SERVO_LIMIT_H angle.
- */
-#define SERVO_PWM_LIMIT_H   1399
-
-
 /**
  *  \brief          Map value in new interval.
  *  \param[in]      x: the value to be remapped.
@@ -70,7 +45,7 @@
  *  \param[out]     out_max: maximum value for output interval.
  *  \return         the remapped value.
  */
-uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
+uint16_t Servo_Map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {
     
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     
@@ -84,7 +59,7 @@ uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uin
 uint16_t Servo_SetPosition(uint16_t deg) {
  
     // Get the compare value for the desired position
-    float tmp = map(deg, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
+    float tmp = Servo_Map(deg, SERVO_LIMIT_L, SERVO_LIMIT_H, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H);
     
     // Update the PWM compare value
     uint16_t compareValue = round(tmp);
@@ -104,7 +79,7 @@ uint16_t Servo_GetPosition(void) {
     uint16_t comparePWM = PWM_Servo_ReadCompare();
     
     // Map the value to degrees
-    return map(comparePWM, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H, SERVO_LIMIT_L, SERVO_LIMIT_H);
+    return Servo_Map(comparePWM, SERVO_PWM_LIMIT_L, SERVO_PWM_LIMIT_H, SERVO_LIMIT_L, SERVO_LIMIT_H);
     
 }
 
